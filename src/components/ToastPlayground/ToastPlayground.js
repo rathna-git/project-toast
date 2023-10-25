@@ -8,7 +8,7 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 
 function ToastPlayground() {
-  const [variant, setVariant] = React.useState('');
+  const [variant, setVariant] = React.useState('notice');
 
   return (
     <div className={styles.wrapper}>
@@ -31,50 +31,33 @@ function ToastPlayground() {
           </div>
         </div>
 
-        {/* <div className={styles.row}>
+      <form className = {styles.row} onSubmit = {(event) =>{
+        event.preventDefault();
+      }}>
           <div className={styles.label}>Variant</div>
+          
+          { VARIANT_OPTIONS.map((el, index) => (
           <div
-            className={`${styles.inputWrapper} ${styles.radioWrapper}`}
-          >
-            <label htmlFor="variant-notice">
-              <input
-                id="variant-notice"
-                type="radio"
-                name="variant"
-                value="notice"
-              />
-              notice
-            </label>
-
-            {/* TODO Other Variant radio buttons here */}
-          {/* </div>
-        </div> */} 
-
-<form className = {styles.row} onSubmit = {(event) =>{
-  event.preventDefault();
- }}>
-    <div className={styles.label}>Variant</div>
-    <div
-      className={`${styles.inputWrapper} ${styles.radioWrapper}`}
-    >
-    { VARIANT_OPTIONS.map((el, index) => (
-     <>
-          <input
-            type="radio"
-            name="variant"
-            id = {`variant-${el}`}
-            value={el}
-            onChange={event => {
-              setVariant(event.target.value)
-            }}
-          />
-          <label htmlFor={`variant-${el}`}>
-            {el} 
-        </label>  
-    </>
-    ))}
-    </div>
-</form>
+          className={`${styles.inputWrapper} ${styles.radioWrapper}`}
+        >
+              <label htmlFor={`variant-${el}`}>
+                <input
+                  type="radio"
+                  name="variant"
+                  id = {`variant-${el}`}
+                  checked = {variant === el}
+                  value={el}
+                  onChange={event => {
+                    setVariant(event.target.value)
+                  }}
+                />
+                
+                  {el} 
+              </label>  
+          </div>
+          ))}
+        
+      </form>
 
         <div className={styles.row}>
           <div className={styles.label} />
