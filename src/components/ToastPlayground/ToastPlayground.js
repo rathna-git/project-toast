@@ -12,6 +12,11 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 function ToastPlayground() {
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
   const [message, setMessage] = React.useState('');
+  const [hidden, setHidden] = React.useState(false);
+
+  function handleClick(){
+    setHidden(!hidden)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -19,7 +24,7 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      <Toast message={message} variant={variant}/>
+      {hidden ? <Toast message={message} variant={variant} hidden={hidden} setHidden={setHidden}/> : null }
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
@@ -73,7 +78,7 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button>Pop Toast!</Button>
+            <Button onClick={handleClick}>Pop Toast!</Button>
           </div>
         </div>
       </div>
