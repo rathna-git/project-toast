@@ -14,9 +14,9 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [hidden, setHidden] = React.useState(false);
 
-  function handleClick(){
-    setHidden(!hidden)
-  }
+ function handleDismiss(){
+  setHidden(false);
+ }
 
   return (
     <div className={styles.wrapper}>
@@ -24,7 +24,11 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      {hidden ? <Toast message={message} variant={variant} hidden={hidden} setHidden={setHidden}/> : null }
+      {hidden && 
+        <Toast variant={variant} setHidden={handleDismiss}> 
+          {message} 
+        </Toast>
+      }
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
@@ -78,7 +82,11 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button onClick={handleClick}>Pop Toast!</Button>
+            <Button onClick={() => {
+              setHidden(true)
+              }}>
+                Pop Toast!
+            </Button>
           </div>
         </div>
       </div>

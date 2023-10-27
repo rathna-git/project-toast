@@ -18,30 +18,26 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({message, variant, hidden, setHidden}) {
+function Toast({variant, setHidden, children}) {
  
  const Icon = ICONS_BY_VARIANT[variant];
 
- function clickHandler(){
-  setHidden(!hidden);
- }
+
 
  return(
   <>
-  {hidden ?  (
-    <div className={`${styles.toast} ${styles.variant}`}>
+    <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
       <p className={styles.content}>
-        {message}
+        {children}
       </p>
-      <button className={styles.closeButton} onClick={clickHandler}>
+      <button className={styles.closeButton} onClick={setHidden}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
-  ) : null }
   </>
  );
  
