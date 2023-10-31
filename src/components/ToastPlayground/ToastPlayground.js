@@ -15,7 +15,8 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [hidden, setHidden] = React.useState(false);
 
- function handleDismiss(){
+ function handleDismiss(event){
+  event.preventDefault();
   setHidden(false);
  }
 
@@ -29,7 +30,7 @@ function ToastPlayground() {
         // <Toast variant={variant} setHidden={handleDismiss}> 
         //   {message} 
         // </Toast>
-        <ToastShelf />
+        <ToastShelf variant={variant} setHidden={(event) => handleDismiss(event)} message={message}/>
       }
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -77,7 +78,7 @@ function ToastPlayground() {
           </div>
           ))}
         
-      </form>
+
 
         <div className={styles.row}>
           <div className={styles.label} />
@@ -91,6 +92,7 @@ function ToastPlayground() {
             </Button>
           </div>
         </div>
+        </form>
       </div>
     </div>
   );
