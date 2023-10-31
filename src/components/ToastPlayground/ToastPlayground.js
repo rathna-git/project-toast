@@ -5,6 +5,7 @@ import Button from '../Button';
 import styles from './ToastPlayground.module.css';
 
 import Toast from '../Toast/Toast';
+import ToastShelf from '../ToastShelf';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
@@ -25,9 +26,10 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
       {hidden && 
-        <Toast variant={variant} setHidden={handleDismiss}> 
-          {message} 
-        </Toast>
+        // <Toast variant={variant} setHidden={handleDismiss}> 
+        //   {message} 
+        // </Toast>
+        <ToastShelf />
       }
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
