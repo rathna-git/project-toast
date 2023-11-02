@@ -20,7 +20,8 @@ function ToastPlayground() {
 
     const newShelf = {
       'message' : message,
-      'variant' : variant
+      'variant' : variant,
+      'id': crypto.randomUUID(),
     };
 
     setShelf([...shelf, newShelf]);
