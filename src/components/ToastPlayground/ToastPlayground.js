@@ -19,14 +19,18 @@ function ToastPlayground() {
   function handleSubmit(){
 
     const newShelf = {
-      'message' : message,
-      'variant' : variant,
-      'id': crypto.randomUUID(),
+      message,
+      variant,
+      id: crypto.randomUUID(),
     };
 
     setShelf([...shelf, newShelf]);
     setMessage('');
     setVariant(VARIANT_OPTIONS[0]);
+  }
+
+  function handleDelete(id){
+    setShelf(shelf.filter((item) => item.id !== id))
   }
  
 
@@ -37,7 +41,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf shelf={shelf}/>
+      <ToastShelf shelf={shelf} handleDelete={handleDelete}/>
 
       <form onSubmit = {(event) =>{
         event.preventDefault();
