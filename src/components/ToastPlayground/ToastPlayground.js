@@ -13,12 +13,21 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 function ToastPlayground() {
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
   const [message, setMessage] = React.useState('');
-  const [hidden, setHidden] = React.useState(false);
+  const [shelf, setShelf] = React.useState([]);
+  
+ 
+  function handleSubmit(){
 
- function handleDismiss(event){
-  event.preventDefault();
-  setHidden(false);
- }
+    const newShelf = {
+      'message' : message,
+      'variant' : variant
+    };
+
+    setShelf([...shelf, newShelf]);
+    setMessage('');
+    setVariant(VARIANT_OPTIONS[0]);
+  }
+ 
 
   return (
     <div className={styles.wrapper}>
@@ -26,12 +35,14 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      {hidden && 
-        // <Toast variant={variant} setHidden={handleDismiss}> 
-        //   {message} 
-        // </Toast>
-        <ToastShelf variant={variant} setHidden={(event) => handleDismiss(event)} message={message}/>
-      }
+
+      <ToastShelf shelf={shelf}/>
+
+      <form onSubmit = {(event) =>{
+        event.preventDefault();
+        handleSubmit(); 
+      }}>
+
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
@@ -47,14 +58,13 @@ function ToastPlayground() {
               className={styles.messageInput} 
               value={message} 
               onChange={(event) => {
-                setMessage(event.target.value)
-              }}/>
+                setMessage(event.target.value);
+              }}
+            />
           </div>
         </div>
 
-      <form className = {styles.row} onSubmit = {(event) =>{
-        event.preventDefault();
-      }}>
+         <div className={styles.row}>
           <div className={styles.label}>Variant</div>
           
           { VARIANT_OPTIONS.map((el, index) => (
@@ -68,7 +78,7 @@ function ToastPlayground() {
                   id = {`variant-${el}`}
                   checked = {variant === el}
                   value={el}
-                  onChange={event => {
+                  onChange = {(event) => {
                     setVariant(event.target.value)
                   }}
                 />
@@ -78,23 +88,21 @@ function ToastPlayground() {
           </div>
           ))}
         
-
+        </div>
 
         <div className={styles.row}>
           <div className={styles.label} />
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button onClick={() => {
-              setHidden(true)
-              }}>
+            <Button>
                 Pop Toast!
             </Button>
           </div>
         </div>
-        </form>
-      </div>
-    </div>
+     </div>
+    </form>
+  </div>
   );
 }
 

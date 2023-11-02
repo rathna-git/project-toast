@@ -22,8 +22,6 @@ function Toast({variant, setHidden, children}) {
  
  const Icon = ICONS_BY_VARIANT[variant];
 
-
-
  return(
   <>
     <div className={`${styles.toast} ${styles[variant]}`}>
