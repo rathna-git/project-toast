@@ -20,6 +20,21 @@ function ToastProvider({ children }) {
 
   ]);
 
+  React.useEffect(() => {
+    function handleKeyDown(event){
+      if(event.code === 'Escape'){
+        setShelf([]);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return() => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+    
+  },[]);
+
   const createToast = (message, variant) => {
     const newShelf = {
       message,
