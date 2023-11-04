@@ -3,36 +3,26 @@ import React from 'react';
 import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
+import { ToastContext } from '../ToastProvider/ToastProvider';
 
-import Toast from '../Toast/Toast';
 import ToastShelf from '../ToastShelf';
+
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
-
 function ToastPlayground() {
+  const { createToast } = React.useContext(ToastContext);
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
   const [message, setMessage] = React.useState('');
-  const [shelf, setShelf] = React.useState([]);
-  
  
   function handleSubmit(){
 
-    const newShelf = {
-      message,
-      variant,
-      id: crypto.randomUUID(),
-    };
+    createToast(message, variant);
 
-    setShelf([...shelf, newShelf]);
     setMessage('');
     setVariant(VARIANT_OPTIONS[0]);
   }
 
-  function handleDelete(id){
-    setShelf(shelf.filter((item) => item.id !== id))
-  }
- 
 
   return (
     <div className={styles.wrapper}>
@@ -41,7 +31,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf shelf={shelf} handleDelete={handleDelete}/>
+      <ToastShelf />
 
       <form onSubmit = {(event) =>{
         event.preventDefault();
